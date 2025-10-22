@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum StatusPaciente {
+  FILA
+  ESPERA
+  ATENDIMENTO
+  FINALIZADO
+}
+
+model Setor{
+  id String @id @default(uuid())
+  nomeSetor String 
+  isPrimeiroContato Boolean 
+
+  atendente Atendente[]
+
+  paciente Paciente[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("setor")
+}
+
+model Atendente{
+  id String @id @default(uuid())
+  nome String
+  login String 
+  senha String
+  ativo Boolean
+
+  paciente Paciente[] 
+
+  fkSetor String
+  setor Setor @relation(fields: [fkSetor], references: [id], onDelete: SetNull)
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("atendente")
+}
+
+model Paciente{
+  id String @id @default(uuid())
+  nome String
+  ticket String
+  prioridade Boolean
+  atendimentoInfantil Boolean
+  status StatusPaciente
+
+  fkSetor String
+  setor Setor @relation(fields: [fkSetor], references: [id])
+
+  fkAtendente String?
+  atendente Atendente? @relation(fields: [fkAtendente], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("paciente")
+}
+
+model Anuncio{
+  id String @id @default(uuid())
+  titulo String 
+  urlYoutube String 
+  ativo Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Configuracao{
+  id String @id @default(uuid())
+  parametro String 
+  valor String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
