@@ -6,11 +6,11 @@ class UpdateConfigController{
 
         const configUuid = req.params.id;
 
-        if(!configUuid){
-            throw new Error("Configuração não encontrada...")
-        }
-
         const {parametro, valor} = req.body;
+
+        if(!configUuid){
+            throw new Error("Identificador inválido")
+        }
 
         const updateConfigService = new UpdateConfigService();
 

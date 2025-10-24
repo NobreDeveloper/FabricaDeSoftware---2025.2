@@ -7,7 +7,7 @@ class ReadConfigController{
 
         const config = await readConfigService.execute();
 
-        return res.json(config)
+        return res.json(config);
     }
 }
 
