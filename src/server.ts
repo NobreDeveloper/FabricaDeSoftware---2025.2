@@ -4,13 +4,11 @@ import { router } from './routes';
 import 'dotenv/config'
 
 
-
 const app = express();
+
 
 // Dizer ao express que a troca de dados será feita em JSON
 app.use(express.json());
-
-
 
 app.use(cors());
 

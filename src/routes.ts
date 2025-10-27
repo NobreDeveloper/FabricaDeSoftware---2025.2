@@ -7,10 +7,14 @@ import { ReadAdController } from "./controllers/anuncio/ReadAdController";
 import { CreateAdController } from "./controllers/anuncio/CreateAdController";
 import { UpdateAdController } from "./controllers/anuncio/UpdateAdController";
 import { DeleteAdController } from "./controllers/anuncio/DeleteAdController";
+import { ReadDepartmentController } from "./controllers/setor/ReadDepartmentController";
+import { CreateDepartmentController } from "./controllers/setor/CreateDepartmentController";
+import { UpdateDepartmentController } from "./controllers/setor/UpdateDepartmentController";
+import { DeleteDepartmentController } from "./controllers/setor/DeleteDepartmentController";
 
 const router = Router();
 
-    // Configuration 
+    // Configuracao 
     router.get('/api/config', new ReadConfigController().handle)
 
     router.post('/api/config', new CreateConfigController().handle)
@@ -19,7 +23,7 @@ const router = Router();
 
     router.delete('/api/config/:id', new DeleteConfigController().handle)
 
-    // Ad
+    // Anuncio
     router.get('/api/ad', new ReadAdController().handle)
 
     router.post('/api/ad', new CreateAdController().handle)
@@ -27,5 +31,14 @@ const router = Router();
     router.put('/api/ad/:id', new UpdateAdController().handle)
 
     router.delete('/api/ad/:id', new DeleteAdController().handle)
+
+    // Setor
+    router.get('/api/setor', new ReadDepartmentController().handle)
+
+    router.post('/api/setor', new CreateDepartmentController().handle)
+
+    router.put('/api/setor/:id', new UpdateDepartmentController().handle)
+
+    router.delete('/api/setor/:id', new DeleteDepartmentController().handle)
 
 export { router };
