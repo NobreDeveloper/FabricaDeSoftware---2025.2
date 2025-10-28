@@ -11,6 +11,10 @@ import { ReadDepartmentController } from "./controllers/setor/ReadDepartmentCont
 import { CreateDepartmentController } from "./controllers/setor/CreateDepartmentController";
 import { UpdateDepartmentController } from "./controllers/setor/UpdateDepartmentController";
 import { DeleteDepartmentController } from "./controllers/setor/DeleteDepartmentController";
+import { ReadRecepcionistController } from "./controllers/atendente/ReadRecepcionistController";
+import { CreateRecepcionistController } from "./controllers/atendente/CreateRecepcionistController";
+import { UpdateRecepcionistController } from "./controllers/atendente/UpdateRecepcionistController";
+import { DeleteRecepcionistController } from "./controllers/atendente/DeleteRecepcionistController";
 
 const router = Router();
 
@@ -40,5 +44,14 @@ const router = Router();
     router.put('/api/setor/:id', new UpdateDepartmentController().handle)
 
     router.delete('/api/setor/:id', new DeleteDepartmentController().handle)
+
+    // Atendente
+    router.get('/api/setor/atendente', new ReadRecepcionistController().handle)
+
+    router.post('/api/setor/atendente', new CreateRecepcionistController().handle)
+
+    router.put('/api/setor/atendente/:id', new UpdateRecepcionistController().handle)
+
+    router.delete('/api/setor/atendente/:id', new DeleteRecepcionistController().handle)
 
 export { router };

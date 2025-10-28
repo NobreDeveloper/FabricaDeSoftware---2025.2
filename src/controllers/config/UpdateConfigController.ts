@@ -4,13 +4,11 @@ import { UpdateConfigService } from "../../services/config/UpdateConfigService";
 class UpdateConfigController{
     async handle(req: Request, res: Response){
 
-        const configUuid = req.params.id;
+        const configUuid = String(req.params.id);
 
         const {parametro, valor} = req.body;
 
-        if(!configUuid){
-            throw new Error("Identificador inválido")
-        }
+        
 
         const updateConfigService = new UpdateConfigService();
 
