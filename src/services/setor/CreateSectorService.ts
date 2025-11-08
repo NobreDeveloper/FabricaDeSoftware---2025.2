@@ -1,33 +1,33 @@
 import prismaClient from "../../prisma";
 
 
-interface DepartmentRequest{
+interface SectorRequest{
     nomeSetor: string
     isPrimeiroContato: boolean
 }
 
-class CreateDepartmentService{
-    async execute({ nomeSetor, isPrimeiroContato }: DepartmentRequest){
+class CreateSectorService{
+    async execute({ nomeSetor, isPrimeiroContato }: SectorRequest){
 
-        const departmentAlreadyExist = await prismaClient.setor.findFirst({
+        const sectorAlreadyExist = await prismaClient.setor.findFirst({
             where:{
                 nomeSetor: nomeSetor
             }
         })
 
-        if(departmentAlreadyExist){
+        if(sectorAlreadyExist){
             throw new Error("Setor já existe")
         }
 
-        const department = await prismaClient.setor.create({
+        const sector = await prismaClient.setor.create({
             data:{
                 nomeSetor: nomeSetor,
                 isPrimeiroContato: isPrimeiroContato
             }
         })
 
-        return department;
+        return sector;
     }
 }
 
-export { CreateDepartmentService }
+export { CreateSectorService }

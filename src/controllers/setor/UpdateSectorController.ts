@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
-import { UpdateDepartmentService } from "../../services/setor/UpdateDepartmentService.ts";
+import { UpdateSectorService } from "../../services/setor/UpdateSectorService.ts";
 
-class UpdateDepartmentController{
+
+
+class UpdateSectorController{
     async handle(req: Request, res: Response){
 
         // Necessário o trecho String pra que o uuid não seja undefined
@@ -9,16 +11,16 @@ class UpdateDepartmentController{
 
         const {nomeSetor, isPrimeiroContato} = req.body;
 
-        const updateDepartmentService = new UpdateDepartmentService();
+        const updateSectorService = new UpdateSectorService();
 
-        const department = await updateDepartmentService.execute({
+        const sector = await updateSectorService.execute({
             setorUuid,
             nomeSetor,
             isPrimeiroContato
         })
 
-        return res.json(department)
+        return res.json(sector)
     }
 }
 
-export { UpdateDepartmentController }
+export { UpdateSectorController }
