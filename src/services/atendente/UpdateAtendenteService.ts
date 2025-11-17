@@ -1,26 +1,27 @@
 import { hash } from "bcryptjs"
 import prismaClient from "../../prisma"
 
-interface RecepcionistRequest{
-    recepcionistUuid: string,
+interface AtendenteRequest{
+    atendenteUuid: string,
     nome?: string,
     login?: string,
     senha?: string,
     ativo?: boolean,
 
-    fkSetor?: string
+    setorUuid: string
 }
 
-class UpdateRecepcionistService{
-    async execute({ recepcionistUuid, nome, login, senha, ativo, fkSetor }:RecepcionistRequest){
+class UpdateAtendenteService{
+    async execute({ atendenteUuid, nome, login, senha, ativo, setorUuid }:AtendenteRequest){
 
-        const recepcionistFound = await prismaClient.atendente.findUnique({
+        const atendenteFound = await prismaClient.atendente.findFirst({
             where:{
-                id: recepcionistUuid
+                id: atendenteUuid,
+                fkSetor: setorUuid
             }
         })
 
-        if(!recepcionistFound){
+        if(!atendenteFound){
             throw new Error("Atendente não encontrado")
         }
 
@@ -45,25 +46,21 @@ class UpdateRecepcionistService{
             data.ativo = ativo
         }
 
-        if(fkSetor != undefined){
-            data.fkSetor = fkSetor
-        }
-
         if(Object.keys(data).length === 0){
             throw new Error("Não foi informado algo para atualizar")
         }
 
-        const recepcionist = await prismaClient.atendente.update({
+        const atendente = await prismaClient.atendente.update({
             where:{
-                id: recepcionistUuid
+                id: atendenteUuid
             },
             data
         })
 
-        return recepcionist;
+        return atendente;
 
 
     }
 }
 
-export { UpdateRecepcionistService }
+export { UpdateAtendenteService }

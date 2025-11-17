@@ -1,46 +1,46 @@
 import { hash } from "bcryptjs"
 import prismaClient from "../../prisma"
 
-interface RecepcionistRequest{
+interface AtendenteRequest{
     nome: string,
     login: string,
     senha: string,
     ativo: boolean,
-    fkSetor: string
+    setorUuid: string
 }
 
-class CreateRecepcionistService{
-    async execute({ login, senha, nome, ativo, fkSetor }: RecepcionistRequest){
+class CreateAtendenteService{
+    async execute({ login, senha, nome, ativo, setorUuid }: AtendenteRequest){
 
-        if( !login || !senha || !nome || !ativo || !fkSetor){
+        if( !login || !senha || !nome || !ativo || !setorUuid){
             throw new Error("Campos faltando")
         }
 
-        const recepcionistAldeadyExist = await prismaClient.atendente.findFirst({
+        const atendenteAldeadyExist = await prismaClient.atendente.findFirst({
             where:{
                 nome: nome
             }
         })
 
-        if(recepcionistAldeadyExist){
+        if(atendenteAldeadyExist){
             throw new Error("Atendente já cadastrado")
         }
 
         const hashPassword = await hash(senha, 8)
 
-        const recepcionist = await prismaClient.atendente.create({
+        const atendente = await prismaClient.atendente.create({
             data:{
                 login: login,
                 senha: hashPassword,
                 nome: nome,
                 ativo: ativo,
-                fkSetor: fkSetor
+                fkSetor: setorUuid
             }
         })
 
-        return recepcionist;
+        return atendente;
 
     }
 }
 
-export { CreateRecepcionistService }
+export { CreateAtendenteService }
