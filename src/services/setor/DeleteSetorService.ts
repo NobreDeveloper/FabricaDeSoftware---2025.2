@@ -1,32 +1,32 @@
 import prismaClient from "../../prisma"
 
-interface SectorRequest{
+interface SetorRequest{
     setorUuid: string, 
     
 }
 
-class DeleteSectorService{
-    async execute({setorUuid}:SectorRequest){
+class DeleteSetorService{
+    async execute({setorUuid}:SetorRequest){
         
-        const sectorExist = await prismaClient.setor.findUnique({
+        const setorExist = await prismaClient.setor.findUnique({
             where:{
                 id: setorUuid
             }
         })
 
-        if(!sectorExist){
+        if(!setorExist){
             throw new Error("Setor não encontrado")
         }
 
-        const sector = await prismaClient.setor.delete({
+        const setor = await prismaClient.setor.delete({
             where:{
                 id: setorUuid
             }
         })
 
-        return sector;
+        return setor;
 
     }
 }
 
-export { DeleteSectorService }
+export { DeleteSetorService }

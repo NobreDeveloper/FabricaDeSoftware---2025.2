@@ -1,21 +1,21 @@
 import prismaClient from "../../prisma";
 
-interface SectorRequest{
+interface SetorRequest{
     setorUuid: string,
     nomeSetor?: string,
     isPrimeiroContato?: boolean
 }
 
-class UpdateSectorService{
-    async execute({setorUuid, nomeSetor, isPrimeiroContato}:SectorRequest){
+class UpdateSetorService{
+    async execute({setorUuid, nomeSetor, isPrimeiroContato}:SetorRequest){
         
-        const sectorExist = await prismaClient.setor.findUnique({
+        const setorExist = await prismaClient.setor.findUnique({
             where:{
                 id: setorUuid
             }
         })
 
-        if(!sectorExist){
+        if(!setorExist){
             throw new Error("Setor não encontrado")
         }
 
@@ -35,7 +35,7 @@ class UpdateSectorService{
             throw new Error("Nenhum campo para atualizar foi informado.");
         }
 
-        const sector = await prismaClient.setor.update({
+        const setor = await prismaClient.setor.update({
             where:{
                 id: setorUuid
             }, 
@@ -43,9 +43,9 @@ class UpdateSectorService{
             data
         })
 
-        return sector;
+        return setor;
 
     }
 }
 
-export { UpdateSectorService }
+export { UpdateSetorService }
