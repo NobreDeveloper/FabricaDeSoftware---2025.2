@@ -1,20 +1,33 @@
 import { Router } from "express";
+
 import { ReadConfigController } from "./controllers/config/ReadConfigController";
 import { CreateConfigController } from "./controllers/config/CreateConfigController";
 import { UpdateConfigController } from "./controllers/config/UpdateConfigController";
 import { DeleteConfigController } from "./controllers/config/DeleteConfigController";
+
 import { ReadAdController } from "./controllers/anuncio/ReadAdController";
 import { CreateAdController } from "./controllers/anuncio/CreateAdController";
 import { UpdateAdController } from "./controllers/anuncio/UpdateAdController";
 import { DeleteAdController } from "./controllers/anuncio/DeleteAdController";
-import { ReadDepartmentController } from "./controllers/setor/ReadDepartmentController";
-import { CreateDepartmentController } from "./controllers/setor/CreateDepartmentController";
-import { UpdateDepartmentController } from "./controllers/setor/UpdateDepartmentController";
-import { DeleteDepartmentController } from "./controllers/setor/DeleteDepartmentController";
-import { ReadRecepcionistController } from "./controllers/atendente/ReadRecepcionistController";
-import { CreateRecepcionistController } from "./controllers/atendente/CreateRecepcionistController";
-import { UpdateRecepcionistController } from "./controllers/atendente/UpdateRecepcionistController";
-import { DeleteRecepcionistController } from "./controllers/atendente/DeleteRecepcionistController";
+
+import { ReadSetorController } from "./controllers/setor/ReadSetorController";
+import { CreateSetorController } from "./controllers/setor/CreateSetorController";
+import { UpdateSetorController } from "./controllers/setor/UpdateSetorController";
+import { DeleteSetorController } from "./controllers/setor/DeleteSetorController";
+
+import { ReadAtendenteController } from "./controllers/atendente/ReadAtendenteController";
+import { CreateAtendenteController } from "./controllers/atendente/CreateAtendenteController";
+import { UpdateAtendenteController } from "./controllers/atendente/UpdateAtendenteController";
+import { DeleteAtendenteController } from "./controllers/atendente/DeleteAtendenteController";
+
+import { ReadPacienteController } from "./controllers/paciente/ReadPacienteController";
+import { CreatePacienteController } from "./controllers/paciente/CreatePacienteController";
+import { UpdatePacienteController } from "./controllers/paciente/UpdatePacienteController";
+import { DeletePacienteController } from "./controllers/paciente/DeletePacienteController";
+
+// import { ListQueueController } from "./controllers/setorFila/ListQueueController";
+// import { NextQueueController } from "./controllers/setorFila/NextQueueController";
+
 
 const router = Router();
 
@@ -35,23 +48,38 @@ const router = Router();
     router.put('/api/ad/:id', new UpdateAdController().handle)
 
     router.delete('/api/ad/:id', new DeleteAdController().handle)
-
-    // Setor
-    router.get('/api/setor', new ReadDepartmentController().handle)
-
-    router.post('/api/setor', new CreateDepartmentController().handle)
-
-    router.put('/api/setor/:id', new UpdateDepartmentController().handle)
-
-    router.delete('/api/setor/:id', new DeleteDepartmentController().handle)
-
+    
     // Atendente
-    router.get('/api/setor/atendente', new ReadRecepcionistController().handle)
+    router.get('/api/setor/:setorUuid/atendente', new ReadAtendenteController().handle)
+    
+    router.post('/api/setor/:setorUuid/atendente', new CreateAtendenteController().handle)
+    
+    router.put('/api/setor/:setorUuid/atendente/:atendenteUuid', new UpdateAtendenteController().handle)
+    
+    router.delete('/api/setor/:setorUuid/atendente/:atendenteUuid', new DeleteAtendenteController().handle)
+    
+    // Paciente
+    router.get('/api/paciente', new ReadPacienteController().handle)
+    
+    router.post('/api/paciente', new CreatePacienteController().handle)
+    
+    router.put('/api/paciente/:pacienteUuid', new UpdatePacienteController().handle)
+    
+    router.delete('/api/paciente/:pacienteUuid', new DeletePacienteController().handle)
+    
+    // Setor
+    router.get('/api/setor', new ReadSetorController().handle)
 
-    router.post('/api/setor/atendente', new CreateRecepcionistController().handle)
+    router.post('/api/setor', new CreateSetorController().handle)
 
-    router.put('/api/setor/atendente/:id', new UpdateRecepcionistController().handle)
+    router.put('/api/setor/:id', new UpdateSetorController().handle)
 
-    router.delete('/api/setor/atendente/:id', new DeleteRecepcionistController().handle)
+    router.delete('/api/setor/:id', new DeleteSetorController().handle)
+    
+    // // Queue
+    // router.get('/api/setor/:uuid/list', new ListQueueController().handle)
+    
+    // router.put('/api/setor/:uuid/next', new NextQueueController().handle)
+
 
 export { router };
