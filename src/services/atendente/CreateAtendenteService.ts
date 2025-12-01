@@ -5,14 +5,13 @@ interface AtendenteRequest{
     nome: string,
     login: string,
     senha: string,
-    ativo: boolean,
-    setorUuid: string
+    ativo: boolean
 }
 
 class CreateAtendenteService{
-    async execute({ login, senha, nome, ativo, setorUuid }: AtendenteRequest){
+    async execute({ login, senha, nome, ativo }: AtendenteRequest){
 
-        if( !login || !senha || !nome || !ativo || !setorUuid){
+        if( !login || !senha || !nome || !ativo){
             throw new Error("Campos faltando")
         }
 
@@ -34,7 +33,7 @@ class CreateAtendenteService{
                 senha: hashPassword,
                 nome: nome,
                 ativo: ativo,
-                fkSetor: setorUuid
+                
             }
         })
 

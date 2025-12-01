@@ -2,16 +2,14 @@ import prismaClient from "../../prisma"
 
 interface AtendenteRequest{
     atendenteUuid: string
-    fkSetor: string
 }
 
 class DeleteAtendenteService{
-    async execute({atendenteUuid, fkSetor}:AtendenteRequest){
+    async execute({atendenteUuid}:AtendenteRequest){
 
         const atendenteExist = await prismaClient.atendente.findUnique({
             where:{
-                id: atendenteUuid,
-                fkSetor: fkSetor
+                id: atendenteUuid
             }
         })
 
@@ -21,8 +19,7 @@ class DeleteAtendenteService{
 
         const atendente = await prismaClient.atendente.delete({
             where:{
-                id: atendenteUuid,
-                fkSetor: fkSetor
+                id: atendenteUuid
             }
         })
 

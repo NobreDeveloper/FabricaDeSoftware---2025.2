@@ -13,13 +13,28 @@ CREATE TABLE "setor" (
 );
 
 -- CreateTable
+CREATE TABLE "atendimento" (
+    "id" TEXT NOT NULL,
+    "status" "StatusPaciente" NOT NULL,
+    "ticket" TEXT NOT NULL,
+    "prioridade" BOOLEAN NOT NULL,
+    "atendimentoInfantil" BOOLEAN NOT NULL,
+    "fkPaciente" TEXT NOT NULL,
+    "fkSetor" TEXT NOT NULL,
+    "fkAtendente" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "atendimento_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "atendente" (
     "id" TEXT NOT NULL,
     "nome" TEXT NOT NULL,
     "login" TEXT NOT NULL,
     "senha" TEXT NOT NULL,
     "ativo" BOOLEAN NOT NULL,
-    "fkSetor" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -30,12 +45,6 @@ CREATE TABLE "atendente" (
 CREATE TABLE "paciente" (
     "id" TEXT NOT NULL,
     "nome" TEXT NOT NULL,
-    "ticket" TEXT NOT NULL,
-    "prioridade" BOOLEAN NOT NULL,
-    "atendimentoInfantil" BOOLEAN NOT NULL,
-    "status" "StatusPaciente" NOT NULL,
-    "fkSetor" TEXT NOT NULL,
-    "fkAtendente" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -66,10 +75,10 @@ CREATE TABLE "Configuracao" (
 );
 
 -- AddForeignKey
-ALTER TABLE "atendente" ADD CONSTRAINT "atendente_fkSetor_fkey" FOREIGN KEY ("fkSetor") REFERENCES "setor"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "atendimento" ADD CONSTRAINT "atendimento_fkPaciente_fkey" FOREIGN KEY ("fkPaciente") REFERENCES "paciente"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "paciente" ADD CONSTRAINT "paciente_fkSetor_fkey" FOREIGN KEY ("fkSetor") REFERENCES "setor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "atendimento" ADD CONSTRAINT "atendimento_fkSetor_fkey" FOREIGN KEY ("fkSetor") REFERENCES "setor"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "paciente" ADD CONSTRAINT "paciente_fkAtendente_fkey" FOREIGN KEY ("fkAtendente") REFERENCES "atendente"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "atendimento" ADD CONSTRAINT "atendimento_fkAtendente_fkey" FOREIGN KEY ("fkAtendente") REFERENCES "atendente"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -7,7 +7,6 @@ class CreateAtendenteController{
 
         const { nome, login, senha, ativo } = req.body;
 
-        const setorUuid = String(req.params.setorUuid)
 
         const createAtendenteService = new CreateAtendenteService();
 
@@ -15,8 +14,7 @@ class CreateAtendenteController{
             nome,
             login,
             senha,
-            ativo, 
-            setorUuid
+            ativo
         });
 
         return res.json(atendente);

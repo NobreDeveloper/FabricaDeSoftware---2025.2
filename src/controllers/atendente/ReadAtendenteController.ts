@@ -4,13 +4,10 @@ import { ReadAtendenteService } from "../../services/atendente/ReadAtendenteServ
 class ReadAtendenteController{
     async handle(req: Request, res: Response){
 
-        const fkSetor = String(req.params.setorUuid)
         
         const readAtendenteService = new ReadAtendenteService();
 
-        const atendente = await readAtendenteService.execute({
-            fkSetor
-        });
+        const atendente = await readAtendenteService.execute();
 
         return res.json(atendente);
     }

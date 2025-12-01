@@ -24,6 +24,9 @@ import { ReadPacienteController } from "./controllers/paciente/ReadPacienteContr
 import { CreatePacienteController } from "./controllers/paciente/CreatePacienteController";
 import { UpdatePacienteController } from "./controllers/paciente/UpdatePacienteController";
 import { DeletePacienteController } from "./controllers/paciente/DeletePacienteController";
+import { CreateAtendimentoController } from "./controllers/atendimento/CreateAtendimentoController";
+import { ReadAtendimentoController } from "./controllers/atendimento/ReadAtendimentoController";
+import { UpdateAtendimentoController } from "./controllers/atendimento/UpdateAtendimentoController";
 
 // import { ListQueueController } from "./controllers/setorFila/ListQueueController";
 // import { NextQueueController } from "./controllers/setorFila/NextQueueController";
@@ -50,13 +53,13 @@ const router = Router();
     router.delete('/api/ad/:id', new DeleteAdController().handle)
     
     // Atendente
-    router.get('/api/setor/:setorUuid/atendente', new ReadAtendenteController().handle)
+    router.get('/api/atendente', new ReadAtendenteController().handle)
     
-    router.post('/api/setor/:setorUuid/atendente', new CreateAtendenteController().handle)
+    router.post('/api/atendente', new CreateAtendenteController().handle)
     
-    router.put('/api/setor/:setorUuid/atendente/:atendenteUuid', new UpdateAtendenteController().handle)
+    router.put('/api/atendente/:atendenteUuid', new UpdateAtendenteController().handle)
     
-    router.delete('/api/setor/:setorUuid/atendente/:atendenteUuid', new DeleteAtendenteController().handle)
+    router.delete('/api/atendente/:atendenteUuid', new DeleteAtendenteController().handle)
     
     // Paciente
     router.get('/api/paciente', new ReadPacienteController().handle)
@@ -76,10 +79,11 @@ const router = Router();
 
     router.delete('/api/setor/:id', new DeleteSetorController().handle)
     
-    // // Queue
-    // router.get('/api/setor/:uuid/list', new ListQueueController().handle)
-    
-    // router.put('/api/setor/:uuid/next', new NextQueueController().handle)
+    // Atendimento
+    router.get('/api/setor/:setorUuid/atendimento', new ReadAtendimentoController().handle)
 
+    router.post('/api/setor/:setorUuid/atendimento', new CreateAtendimentoController().handle)
+
+    router.put('/api/setor/:setorUuid/atendimento/:atendimentoUuid', new UpdateAtendimentoController().handle)
 
 export { router };

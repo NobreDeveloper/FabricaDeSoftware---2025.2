@@ -6,13 +6,11 @@ class DeleteAtendenteController{
 
         const atendenteUuid = String(req.params.atendenteUuid);
 
-        const fkSetor = String(req.params.setorUuid)
         
         const deleteAtendenteService = new DeleteAtendenteService();
 
         const atendente = await deleteAtendenteService.execute({
-            atendenteUuid,
-            fkSetor
+            atendenteUuid
         });
 
         return res.json(atendente);
